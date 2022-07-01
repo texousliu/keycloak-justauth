@@ -24,10 +24,12 @@ on:
         description: "Prerelease"
         required: true
         default: true
-        type: choice
-        options:
-        - true
-        - false
+        type: boolean
+      legacy:
+        description: "Legacy Image"
+        required: true
+        default: true
+        type: boolean
 
 jobs:
   build:
@@ -158,6 +160,7 @@ jobs:
           if __name__ == '__main__':
             keycloak_version = "${{ github.event.inputs.keycloak }}" or 'latest'
             justauth_version = "${{ github.event.inputs.justauth }}" or 'latest'
+            keycloak_legacy = "${{ github.event.inputs.legacy }}" or 'true'
             if keycloak_version == 'latest':
               keycloak_version = check_maven_latest("org.keycloak", "keycloak-parent")
             if justauth_version == 'latest':
@@ -174,6 +177,10 @@ jobs:
                 g.write(f'HUTOOL_VERSION={hutool_version}\n')
                 g.write(f'ALIPAY_SDK_VERSION={alipay_sdk_version}\n')
                 g.write(f'artifact_name=Keycloak-Justauth_{keycloak_version}_{justauth_version}_{alipay_sdk_version}\n')
+                if keycloak_legacy == 'true':
+                  g.write(f'KEYCLOAK_IMAGE={keycloak_version}-legacy\n')
+                else:
+                  g.write(f'KEYCLOAK_IMAGE={keycloak_version}\n')
               print('Gen version success')
             else:
               print('Get latest version error')
@@ -215,18 +222,18 @@ jobs:
         context: .
         push: true
         build-args: |
-          keycloak_version=${{ env.KEYCLOAK_VERSION }}
+          keycloak_version=${{ env.KEYCLOAK_IMAGE }}
         tags: |
-          ztelliot/keycloak-justauth:${{ env.KEYCLOAK_VERSION }}
-          ghcr.io/ztelliot/keycloak-justauth:${{ env.KEYCLOAK_VERSION }}
+          ztelliot/keycloak-justauth:${{ env.KEYCLOAK_IMAGE }}
+          ghcr.io/ztelliot/keycloak-justauth:${{ env.KEYCLOAK_IMAGE }}
     - name: Build and Push Docker images as Latest
       uses: docker/build-push-action@v2
-      if: ${{ github.event.inputs.prerelease != 'true' }}
+      if: ${{ !github.event.inputs.prerelease }}
       with:
         context: .
         push: true
         build-args: |
-          keycloak_version=${{ env.KEYCLOAK_VERSION }}
+          keycloak_version=${{ env.KEYCLOAK_IMAGE }}
         tags: |
           ztelliot/keycloak-justauth:latest
           ghcr.io/ztelliot/keycloak-justauth:latest
