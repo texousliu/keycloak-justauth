@@ -1,6 +1,6 @@
-ARG keycloak_version=16.1.1
+ARG keycloak_image=16.1.1
 
-FROM quay.io/keycloak/keycloak:${keycloak_version}
+FROM quay.io/keycloak/keycloak:${keycloak_image}
 
 ARG keycloak_version=16.1.1
 
