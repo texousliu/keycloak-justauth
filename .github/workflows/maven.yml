@@ -167,7 +167,7 @@ jobs:
               justauth_version = check_maven_latest("me.zhyd.oauth", "JustAuth")
             hutool_version = check_maven_latest("cn.hutool", "hutool-http")
             alipay_sdk_version = check_maven_latest("com.alipay.sdk", "alipay-sdk-java")
-            if keycloak_version and keycloak_version != 'latest' and justauth_version and justauth_version != 'latest' and hutool_version and hutool_version != 'latest':
+            if keycloak_version and keycloak_version != 'latest' and justauth_version and justauth_version != 'latest' and hutool_version and alipay_sdk_version:
               print(f"Keycloak: {keycloak_version}\nJustauth: {justauth_version}\nHutool: {hutool_version}\nAlipaySDK: {alipay_sdk_version}")
               pom = gen_pom(keycloak_version, justauth_version, hutool_version, alipay_sdk_version)
               open('pom.xml', 'w').write(pom)
@@ -176,7 +176,7 @@ jobs:
                 g.write(f'JUSTAUTH_VERSION={justauth_version}\n')
                 g.write(f'HUTOOL_VERSION={hutool_version}\n')
                 g.write(f'ALIPAY_SDK_VERSION={alipay_sdk_version}\n')
-                g.write(f'artifact_name=Keycloak-Justauth_{keycloak_version}_{justauth_version}_{alipay_sdk_version}\n')
+                g.write(f'artifact_name=Keycloak-Justauth_{keycloak_version}_{justauth_version}\n')
                 if keycloak_legacy == 'true':
                   g.write(f'KEYCLOAK_IMAGE={keycloak_version}-legacy\n')
                 else:
