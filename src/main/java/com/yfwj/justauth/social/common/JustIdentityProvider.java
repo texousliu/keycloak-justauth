@@ -92,8 +92,6 @@ public class JustIdentityProvider extends AbstractOAuth2IdentityProvider<JustIde
         protected ClientConnection clientConnection;
         @Context
         protected HttpHeaders headers;
-        @Context
-        protected UriInfo uriInfo;
 
 
         public Endpoint(AuthenticationCallback callback, RealmModel realm, EventBuilder event) {
@@ -109,7 +107,8 @@ public class JustIdentityProvider extends AbstractOAuth2IdentityProvider<JustIde
                                      @QueryParam("error") String error) {
             AuthCallback authCallback = AuthCallback.builder().code(authorizationCode).state(state).build();
 
-            AuthRequest authRequest = getAuthRequest(AUTH_CONFIG, uriInfo.getAbsolutePath().toString());
+            String redirectUri = "https://www.yfwj.com";
+            AuthRequest authRequest = getAuthRequest(AUTH_CONFIG, redirectUri);
             AuthResponse<AuthUser> response = authRequest.login(authCallback);
 
             if (response.ok()) {
