@@ -219,7 +219,7 @@ jobs:
           ghcr.io/ztelliot/keycloak-justauth:${{ env.KEYCLOAK_VERSION }}
     - name: Build and Push Docker images as Latest
       uses: docker/build-push-action@v2
-      if: ${{ !github.event.inputs.prerelease }}
+      if: ! ${{ github.event.inputs.prerelease }}
       with:
         context: .
         push: true
