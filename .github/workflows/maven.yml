@@ -37,7 +37,7 @@ jobs:
 
           def check_maven_latest(group, artifact):
             res = requests.get(f"https://repo1.maven.org/maven2/{group.replace('.', '/')}/{artifact}/maven-metadata.xml")
-            return re.findall(r'<latest>(.*?)</latest>', res.text)[0]
+            return re.findall(r'<release>(.*?)</release>', res.text)[0]
 
           def gen_pom(keycloak_version, justauth_version, hutool_version, alipay_sdk_version):
             raw = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -56,8 +56,8 @@ jobs:
             <artifactId>keycloak-justauth</artifactId>
             <packaging>jar</packaging>
             <properties>
-              <maven.compiler.source>1.8</maven.compiler.source>
-              <maven.compiler.target>1.8</maven.compiler.target>
+              <maven.compiler.source>11</maven.compiler.source>
+              <maven.compiler.target>11</maven.compiler.target>
               <justauth.version>{justauth_version}</justauth.version>
             </properties>
           
@@ -113,14 +113,14 @@ jobs:
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <configuration>
-                      <source>1.8</source>
-                      <target>1.8</target>
+                      <source>11</source>
+                      <target>11</target>
                     </configuration>
                   </plugin>
                   <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
-                    <version>3.3.0</version>
+                    <version>3.5.0</version>
                     <configuration>
                       <descriptorRefs>
                         <descriptorRef>jar-with-dependencies</descriptorRef>
