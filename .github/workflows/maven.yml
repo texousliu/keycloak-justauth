@@ -20,11 +20,6 @@ on:
         description: "Justauth version"
         required: true
         default: "latest"
-      prerelease:
-        description: "Prerelease"
-        required: true
-        default: true
-        type: boolean
 
 jobs:
   build:
@@ -194,7 +189,6 @@ jobs:
         body: "```\nKeycloak Version: ${{ env.KEYCLOAK_VERSION }}\nJustauth Version: ${{ env.JUSTAUTH_VERSION }}\nHutool Version: ${{ env.HUTOOL_VERSION }}\nAlipaySDK Version: ${{ env.ALIPAY_SDK_VERSION }}\n```"
         tag_name: ${{ env.KEYCLOAK_VERSION }}
         files: target/*.jar
-        prerelease: ${{ github.event.inputs.prerelease }}
         fail_on_unmatched_files: true
     - name: Log in to Docker Hub
       uses: docker/login-action@v1
@@ -219,7 +213,6 @@ jobs:
           ghcr.io/ztelliot/keycloak-justauth:${{ env.KEYCLOAK_VERSION }}
     - name: Build and Push Docker images as Latest
       uses: docker/build-push-action@v2
-      if: ! ${{ github.event.inputs.prerelease }}
       with:
         context: .
         push: true
