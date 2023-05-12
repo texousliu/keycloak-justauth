@@ -52,13 +52,14 @@ jobs:
               <version>{keycloak_version}</version>
             </parent>
           
-            <groupId>com.yfwj</groupId>
+            <groupId>io.github.yanfeiwuji</groupId>
             <artifactId>keycloak-justauth</artifactId>
             <packaging>jar</packaging>
             <properties>
               <maven.compiler.source>11</maven.compiler.source>
               <maven.compiler.target>11</maven.compiler.target>
               <justauth.version>{justauth_version}</justauth.version>
+              <hutool.version>{hutool_version}</hutool.version>
             </properties>
           
             <dependencies>

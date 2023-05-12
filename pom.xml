@@ -7,16 +7,17 @@
   <parent>
     <artifactId>keycloak-parent</artifactId>
     <groupId>org.keycloak</groupId>
-    <version>21.0.0</version>
+    <version>21.1.1</version>
   </parent>
 
-  <groupId>com.yfwj</groupId>
+  <groupId>io.github.yanfeiwuji</groupId>
   <artifactId>keycloak-justauth</artifactId>
   <packaging>jar</packaging>
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <justauth.version>1.16.5</justauth.version>
+    <hutool.version>5.8.18</hutool.version>
   </properties>
 
   <dependencies>
@@ -57,7 +58,7 @@
     <dependency>
       <groupId>cn.hutool</groupId>
       <artifactId>hutool-http</artifactId>
-      <version>	5.8.12</version>
+      <version>${hutool.version}</version>
     </dependency>
 
     <dependency>
