@@ -103,7 +103,7 @@ jobs:
 
               <dependency>
                 <groupId>cn.hutool</groupId>
-                <artifactId>hutool-http</artifactId>
+                <artifactId>hutool-json</artifactId>
                 <version>{hutool_version}</version>
               </dependency>
             </dependencies>
@@ -155,7 +155,7 @@ jobs:
               keycloak_version = check_maven_latest("org.keycloak", "keycloak-parent")
             if justauth_version == 'latest':
               justauth_version = check_maven_latest("me.zhyd.oauth", "JustAuth")
-            hutool_version = check_maven_latest("cn.hutool", "hutool-http")
+            hutool_version = check_maven_latest("cn.hutool", "hutool-json")
             alipay_sdk_version = check_maven_latest("com.alipay.sdk", "alipay-sdk-java")
             if keycloak_version and keycloak_version != 'latest' and justauth_version and justauth_version != 'latest' and hutool_version and alipay_sdk_version:
               print(f"Keycloak: {keycloak_version}\nJustauth: {justauth_version}\nHutool: {hutool_version}\nAlipaySDK: {alipay_sdk_version}")
