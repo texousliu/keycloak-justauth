@@ -7,17 +7,17 @@
   <parent>
     <artifactId>keycloak-parent</artifactId>
     <groupId>org.keycloak</groupId>
-    <version>21.1.1</version>
+    <version>26.0.7</version>
   </parent>
 
   <groupId>io.github.yanfeiwuji</groupId>
   <artifactId>keycloak-justauth</artifactId>
   <packaging>jar</packaging>
   <properties>
-    <maven.compiler.source>11</maven.compiler.source>
-    <maven.compiler.target>11</maven.compiler.target>
-    <justauth.version>1.16.5</justauth.version>
-    <hutool.version>5.8.18</hutool.version>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.source>17</maven.compiler.source>
+    <justauth.version>1.16.7</justauth.version>
+    <hutool.version>5.8.34</hutool.version>
   </properties>
 
   <dependencies>
@@ -61,12 +61,6 @@
       <version>${hutool.version}</version>
     </dependency>
 
-    <dependency>
-        <groupId>com.alipay.sdk</groupId>
-        <artifactId>alipay-sdk-java</artifactId>
-        <version>4.35.59.ALL</version>
-    </dependency>
-
   </dependencies>
 
   <build>
@@ -75,8 +69,8 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
-            <source>11</source>
-            <target>11</target>
+            <source>${maven.compiler.source}</source>
+            <target>${maven.compiler.target}</target>
           </configuration>
         </plugin>
         <plugin>

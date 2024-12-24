@@ -1,9 +1,9 @@
 package io.github.yanfeiwuji.justauth.social.common;
 
+import com.xkcoding.http.config.HttpConfig;
 import me.zhyd.oauth.config.AuthConfig;
 import me.zhyd.oauth.enums.scope.AuthBaiduScope;
 import me.zhyd.oauth.enums.scope.AuthCodingScope;
-import me.zhyd.oauth.enums.scope.AuthHuaweiScope;
 import me.zhyd.oauth.enums.scope.AuthWeiboScope;
 import me.zhyd.oauth.request.*;
 
@@ -49,13 +49,13 @@ public enum JustAuthKey {
   TEAMBITION("teambition", "Teambition", AuthTeambitionRequest.class),
   PINTEREST("pinterest", "pinterest", AuthPinterestRequest.class),
   RENREN("renren", "人人", AuthRenrenRequest.class),
-  HUAWEI("huawei", "华为", AuthHuaweiRequest.class, Arrays.asList(
-    AuthHuaweiScope.BASE_PROFILE.getScope(),
-    AuthHuaweiScope.MOBILE_NUMBER.getScope(),
-    AuthHuaweiScope.ACCOUNTLIST.getScope(),
-    AuthHuaweiScope.SCOPE_DRIVE_FILE.getScope(),
-    AuthHuaweiScope.SCOPE_DRIVE_APPDATA.getScope()
-  )),
+  // HUAWEI("huawei", "华为", AuthHuaweiRequest.class, Arrays.asList(
+  //   AuthHuaweiScope.BASE_PROFILE.getScope(),
+  //   AuthHuaweiScope.MOBILE_NUMBER.getScope(),
+  //   AuthHuaweiScope.ACCOUNTLIST.getScope(),
+  //   AuthHuaweiScope.SCOPE_DRIVE_FILE.getScope(),
+  //   AuthHuaweiScope.SCOPE_DRIVE_APPDATA.getScope()
+  // )),
 
   //扫描二维码登陆
   WEWORK("wework", "企业微信", AuthWeChatEnterpriseQrcodeRequest.class),
@@ -104,7 +104,7 @@ public enum JustAuthKey {
     return AuthConfig.builder();
   }
 
-  public static AuthConfig getAuthConfig(JustIdentityProviderConfig config) {
+  public static AuthConfig getAuthConfig(JustAuthIdentityProviderConfig config) {
     JustAuthKey justAuthKey = config.getJustAuthKey();
     String clientId = config.getClientId();
     String clientSecret = config.getClientSecret();
@@ -124,6 +124,8 @@ public enum JustAuthKey {
         authConfigBuilder.domainPrefix(codingGroupName);
     }
 
+    HttpConfig httpConfig = HttpConfig.builder().timeout(20000).build();
+    authConfigBuilder.httpConfig(httpConfig);
     return authConfigBuilder.build();
   }
 

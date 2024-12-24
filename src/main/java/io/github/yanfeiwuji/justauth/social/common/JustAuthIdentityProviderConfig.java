@@ -6,33 +6,28 @@ import org.keycloak.broker.oidc.OAuth2IdentityProviderConfig;
 import org.keycloak.models.IdentityProviderModel;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author yanfeiwuji
- * @date 2021/1/12 7:53 下午
+ * @since 2021/1/12 7:53 下午
  */
-public class JustIdentityProviderConfig<T extends AuthDefaultRequest> extends OAuth2IdentityProviderConfig {
+public class JustAuthIdentityProviderConfig extends OAuth2IdentityProviderConfig {
 
     private static final String AGENT_ID_KEY = "weworkAgentId";
     private static final String ALIPAY_PUBLIC_KEY = "alipayPublicKey";
     private static final String CODING_GROUP_NAME = "codingGroupName";
 
     private final JustAuthKey justAuthKey;
-    private final Function<AuthConfig, T> authToReqFunc;
+    private final Function<AuthConfig, AuthDefaultRequest> authToReqFunc;
 
-    public JustIdentityProviderConfig(IdentityProviderModel model, JustAuthKey justAuthKey, Function<AuthConfig, T> authToReqFunc) {
+    public JustAuthIdentityProviderConfig(IdentityProviderModel model,
+                                          JustAuthKey justAuthKey,
+                                          Function<AuthConfig, AuthDefaultRequest> authToReqFunc) {
         super(model);
         this.justAuthKey = justAuthKey;
         this.authToReqFunc = authToReqFunc;
 
     }
-
-    public JustIdentityProviderConfig(JustAuthKey justAuthKey, Function<AuthConfig, T> authToReqFunc) {
-        this.justAuthKey = justAuthKey;
-        this.authToReqFunc = authToReqFunc;
-    }
-
 
     public JustAuthKey getJustAuthKey() {
         return this.justAuthKey;
@@ -62,7 +57,7 @@ public class JustIdentityProviderConfig<T extends AuthDefaultRequest> extends OA
         getConfig().put(CODING_GROUP_NAME, codingGroupName);
     }
 
-    public Function<AuthConfig, T> getAuthToReqFunc() {
+    public Function<AuthConfig, AuthDefaultRequest> getAuthToReqFunc() {
         return authToReqFunc;
     }
 }
